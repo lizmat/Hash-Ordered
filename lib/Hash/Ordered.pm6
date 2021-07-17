@@ -21,9 +21,6 @@ my \result :=
         nextcallee()(self, key)
 ; dd result; result
     }
-    method ASSIGN-KEY(::?ROLE:D: \key, \value) is raw {
-        self.AT-KEY(key) = value
-    }
     method BIND-KEY(::?ROLE:D: \key, \value) is raw {
         self!add-key(key) unless self.EXISTS-KEY(key);
         nextsame;
@@ -31,13 +28,6 @@ my \result :=
     method DELETE-KEY(::?ROLE:D: \key) {
         self!del-key(key) if self.EXISTS-KEY(key);
         nextsame;
-    }
-
-    method values(::ROLE:D:) {
-        @!keys.map: { self.AT-KEY($_) }
-    }
-    method pairs(::ROLE:D:) {
-        @!keys.map: { Pair.new: $_, self.AT-KEY($_) }
     }
 
     method gist(::?ROLE:D:) {
