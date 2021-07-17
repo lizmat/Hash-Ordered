@@ -82,9 +82,6 @@ my \result :=
         self.pairs.join(" ")
     }
 
-    method perl(::?ROLE:D:) is DEPRECATED("raku") {
-        self.raku
-    }
     method raku(::?ROLE:D:) {
         self.perlseen(self.^name, {
           ~ self.^name
