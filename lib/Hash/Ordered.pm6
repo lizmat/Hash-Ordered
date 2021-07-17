@@ -15,40 +15,6 @@ role Hash::Ordered:ver<0.0.1>:auth<cpan:ELIZABETH>
         @!keys.splice: @!keys.first(*.WHICH eq $WHICH,:k), 1;
     }
 
-    method STORE(*@values) {
-        self!STORE(@values);
-        self
-    }
-
-    method !STORE(@values --> Nil) {
-        my $last := Mu;
-        my int $found;
-
-        for @values {
-            if $_ ~~ Pair {
-                self.AT-KEY(.key) = .value;
-                ++$found;
-            }
-            elsif $_ ~~ Failure {
-                .throw
-            }
-            elsif !$last =:= Mu {
-                self.AT-KEY($last) = $_;
-                ++$found;
-                $last := Mu;
-            }
-            elsif $_ ~~ Map {
-                $found += self!STORE([.pairs])
-            }
-            else {
-                $last := $_;
-            }
-        }
-
-        X::Hash::Store::OddNumber.new(:$found, :$last).throw
-          unless $last =:= Mu;
-    }
-
     method AT-KEY(::?ROLE:D: \key) is raw {
         self!add-key(key) unless self.EXISTS-KEY(key);
 my \result :=
