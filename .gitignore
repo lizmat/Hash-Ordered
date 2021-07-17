@@ -1,0 +1,10 @@
+/blib/
+/src/*.o
+/src/Makefile
+/.panda-work
+/resources/*.so
+/resources/*.dylib
+.precomp/
+/releases/
+/Hash-Ordered-*
+/lib/Hash-Agnostic/lib/Hash/Agnostic.pm6
