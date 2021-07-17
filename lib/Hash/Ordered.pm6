@@ -1,6 +1,10 @@
 use v6.c;
 
-role Hash::Ordered:ver<0.0.1>:auth<cpan:ELIZABETH> {
+use Hash::Agnostic:ver<0.0.8>:auth<cpan:ELIZABETH>;
+
+role Hash::Ordered:ver<0.0.1>:auth<cpan:ELIZABETH>
+  does Hash::Agnostic
+{
     has str @.keys;
 
     method !add-key(\key --> Nil) {

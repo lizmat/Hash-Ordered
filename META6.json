@@ -4,7 +4,9 @@
     "Elizabeth Mattijsen"
   ],
   "build-depends" : [ ],
-  "depends" : [ ],
+  "depends" : [
+    "Hash::Agnostic:ver<0.0.8>:auth<cpan:ELIZABETH>"
+  ],
   "description" : "role for ordered Hashes",
   "license" : "Artistic-2.0",
   "name" : "Hash::Ordered",
