@@ -5,29 +5,63 @@ use Hash::Agnostic:ver<0.0.8>:auth<cpan:ELIZABETH>;
 role Hash::Ordered:ver<0.0.1>:auth<cpan:ELIZABETH>
   does Hash::Agnostic
 {
+    has %!indices;
     has str @.keys;
-
-    method !add-key(\key --> Nil) {
-        @!keys.push: key
-    }
-    method !del-key(\key --> Nil) {
-        my $WHICH := key.WHICH;
-        @!keys.splice: @!keys.first(*.WHICH eq $WHICH,:k), 1;
-    }
+    has Mu  @.values;
 
     method AT-KEY(::?ROLE:D: \key) is raw {
-        self!add-key(key) unless self.EXISTS-KEY(key);
-my \result :=
-        nextcallee()(self, key)
-; dd result; result
+        Proxy.new(
+            FETCH => {
+                with %!indices.AT-KEY(key) {
+                    @!values.AT-POS($_)
+                }
+                else { Nil }
+            },
+            STORE => -> $, \value {
+                with %!indices.AT-KEY(key) {
+                    @!values.ASSIGN-POS($_, value)
+                }
+                else {
+                    my int $index = @!keys.elems;
+                    @!keys.ASSIGN-POS($index, key);
+                    %!indices.BIND-KEY(key, $index);
+                    @!values.ASSIGN-POS($index, value)
+                }
+            }
+        )
     }
+
     method BIND-KEY(::?ROLE:D: \key, \value) is raw {
-        self!add-key(key) unless self.EXISTS-KEY(key);
-        nextsame;
+        with %!indices.AT-KEY(key) -> \index {
+            @!values.BIND-POS(index, value)
+        }
+        else {
+            my int $index = @!keys.elems;
+            @!keys.ASSIGN-POS($index, key);
+            @!values.BIND-POS($index, value);
+            %!indices.BIND-KEY(key, $index);
+        }
     }
+
+    method CLEAR(::?ROLE:D:) {
+        %!indices = @!keys = @!values = Empty;
+    }
+
     method DELETE-KEY(::?ROLE:D: \key) {
-        self!del-key(key) if self.EXISTS-KEY(key);
-        nextsame;
+        with %!indices.DELETE-KEY(key) -> \index {
+            my \value = @!values[index];
+
+            @!keys.splice:   index, 1;
+            @!values.splice: index, 1;
+
+            %!indices.AT-KEY(@!keys.AT-POS($_))-- for index .. @!keys.end;
+
+            value
+        }
+    }
+
+    method EXISTS-KEY(::?ROLE:D: \key) {
+        %!indices.EXISTS-KEY(key)
     }
 
     method gist(::?ROLE:D:) {
