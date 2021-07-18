@@ -53,9 +53,6 @@ subtest {
 
 subtest {
     plan 4;
-dd %h<d>:exists;
-dd %h<e>:exists;
-dd %h<f>:exists;
     is-deeply %h<d e f>:exists, (True,True,True),
       'can we check existence of an existing slice';
     is %h<d e f>:delete, (628,271,6), 'can we remove an existing slice';
