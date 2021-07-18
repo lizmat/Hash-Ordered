@@ -1,73 +1,67 @@
 use v6.c;
 
-role Hash::Ordered:ver<0.0.1>:auth<cpan:ELIZABETH> {
+use Hash::Agnostic:ver<0.0.8>:auth<cpan:ELIZABETH>;
+
+role Hash::Ordered:ver<0.0.1>:auth<cpan:ELIZABETH>
+  does Hash::Agnostic
+{
+    has %!indices;
     has str @.keys;
-
-    method !add-key(\key --> Nil) {
-        @!keys.push: key
-    }
-    method !del-key(\key --> Nil) {
-        my $WHICH := key.WHICH;
-        @!keys.splice: @!keys.first(*.WHICH eq $WHICH,:k), 1;
-    }
-
-    method STORE(*@values) {
-        self!STORE(@values);
-        self
-    }
-
-    method !STORE(@values --> Nil) {
-        my $last := Mu;
-        my int $found;
-
-        for @values {
-            if $_ ~~ Pair {
-                self.AT-KEY(.key) = .value;
-                ++$found;
-            }
-            elsif $_ ~~ Failure {
-                .throw
-            }
-            elsif !$last =:= Mu {
-                self.AT-KEY($last) = $_;
-                ++$found;
-                $last := Mu;
-            }
-            elsif $_ ~~ Map {
-                $found += self!STORE([.pairs])
-            }
-            else {
-                $last := $_;
-            }
-        }
-
-        X::Hash::Store::OddNumber.new(:$found, :$last).throw
-          unless $last =:= Mu;
-    }
+    has Mu  @.values;
 
     method AT-KEY(::?ROLE:D: \key) is raw {
-        self!add-key(key) unless self.EXISTS-KEY(key);
-my \result :=
-        nextcallee()(self, key)
-; dd result; result
-    }
-    method ASSIGN-KEY(::?ROLE:D: \key, \value) is raw {
-        self.AT-KEY(key) = value
-    }
-    method BIND-KEY(::?ROLE:D: \key, \value) is raw {
-        self!add-key(key) unless self.EXISTS-KEY(key);
-        nextsame;
-    }
-    method DELETE-KEY(::?ROLE:D: \key) {
-        self!del-key(key) if self.EXISTS-KEY(key);
-        nextsame;
+        Proxy.new(
+            FETCH => {
+                with %!indices.AT-KEY(key) {
+                    @!values.AT-POS($_)
+                }
+                else { Nil }
+            },
+            STORE => -> $, \value {
+                with %!indices.AT-KEY(key) {
+                    @!values.ASSIGN-POS($_, value)
+                }
+                else {
+                    my int $index = @!keys.elems;
+                    @!keys.ASSIGN-POS($index, key);
+                    %!indices.BIND-KEY(key, $index);
+                    @!values.ASSIGN-POS($index, value)
+                }
+            }
+        )
     }
 
-    method values(::ROLE:D:) {
-        @!keys.map: { self.AT-KEY($_) }
+    method BIND-KEY(::?ROLE:D: \key, \value) is raw {
+        with %!indices.AT-KEY(key) -> \index {
+            @!values.BIND-POS(index, value)
+        }
+        else {
+            my int $index = @!keys.elems;
+            @!keys.ASSIGN-POS($index, key);
+            @!values.BIND-POS($index, value);
+            %!indices.BIND-KEY(key, $index);
+        }
     }
-    method pairs(::ROLE:D:) {
-        @!keys.map: { Pair.new: $_, self.AT-KEY($_) }
+
+    method CLEAR(::?ROLE:D:) {
+        %!indices = @!keys = @!values = Empty;
+    }
+
+    method DELETE-KEY(::?ROLE:D: \key) {
+        with %!indices.DELETE-KEY(key) -> \index {
+            my \value = @!values[index];
+
+            @!keys.splice:   index, 1;
+            @!values.splice: index, 1;
+
+            %!indices.AT-KEY(@!keys.AT-POS($_))-- for index .. @!keys.end;
+
+            value
+        }
+    }
+
+    method EXISTS-KEY(::?ROLE:D: \key) {
+        %!indices.EXISTS-KEY(key)
     }
 
     method gist(::?ROLE:D:) {
@@ -78,9 +72,6 @@ my \result :=
         self.pairs.join(" ")
     }
 
-    method perl(::?ROLE:D:) is DEPRECATED("raku") {
-        self.raku
-    }
     method raku(::?ROLE:D:) {
         self.perlseen(self.^name, {
           ~ self.^name
