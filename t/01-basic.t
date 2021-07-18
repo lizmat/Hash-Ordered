@@ -60,7 +60,8 @@ subtest {
       'can we check existence of removed slice';
     is %h.elems, @keys - 4, 'did we update number of elements';
 }, 'can we delete a slice';
-=finish
+
+lives-ok { %h = @pairs }, 'can re-initialize a Hash';
 
 subtest {
     plan 3;
@@ -68,7 +69,5 @@ subtest {
     is-deeply (%h{}:v),      @values, 'does a value zen-slice work';
     is-deeply (%h{*}:v),     @values, 'does a value whatever-slice work';
 }, 'can we do value slices';
-
-lives-ok { %h = @pairs }, 'can re-initialize a Hash';
 
 # vim: expandtab shiftwidth=4
