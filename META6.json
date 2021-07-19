@@ -1,24 +1,27 @@
 {
-  "auth" : "cpan:ELIZABETH",
-  "authors" : [
+  "auth": "cpan:ELIZABETH",
+  "authors": [
     "Elizabeth Mattijsen"
   ],
-  "build-depends" : [ ],
-  "depends" : [
+  "build-depends": [
+  ],
+  "depends": [
     "Hash::Agnostic:ver<0.0.9>:auth<cpan:ELIZABETH>"
   ],
-  "description" : "role for ordered Hashes",
-  "license" : "Artistic-2.0",
-  "name" : "Hash::Ordered",
-  "perl" : "6.c",
-  "provides" : {
-    "Hash::Ordered" : "lib/Hash/Ordered.pm6"
+  "description": "role for ordered Hashes",
+  "license": "Artistic-2.0",
+  "name": "Hash::Ordered",
+  "perl": "6.c",
+  "provides": {
+    "Hash::Ordered": "lib/Hash/Ordered.pm6"
   },
-  "resources" : [ ],
-  "source-url" : "https://github.com/lizmat/Hash-Ordered.git",
-  "tags" : [
+  "resources": [
+  ],
+  "source-url": "https://github.com/lizmat/Hash-Ordered.git",
+  "tags": [
     "UTILS"
   ],
-  "test-depends" : [ ],
-  "version" : "0.0.1"
+  "test-depends": [
+  ],
+  "version": "0.0.1"
 }
