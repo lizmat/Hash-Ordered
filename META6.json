@@ -1,19 +1,19 @@
 {
-  "auth": "cpan:ELIZABETH",
+  "auth": "zef:lizmat",
   "authors": [
     "Elizabeth Mattijsen"
   ],
   "build-depends": [
   ],
   "depends": [
-    "Hash::Agnostic:ver<0.0.9>:auth<cpan:ELIZABETH>"
+    "Hash::Agnostic:ver<0.0.10>:auth<zef:lizmat>"
   ],
   "description": "role for ordered Hashes",
   "license": "Artistic-2.0",
   "name": "Hash::Ordered",
   "perl": "6.c",
   "provides": {
-    "Hash::Ordered": "lib/Hash/Ordered.pm6"
+    "Hash::Ordered": "lib/Hash/Ordered.rakumod"
   },
   "resources": [
   ],
@@ -23,5 +23,5 @@
   ],
   "test-depends": [
   ],
-  "version": "0.0.1"
+  "version": "0.0.2"
 }

@@ -1,3 +1,5 @@
+[![Actions Status](https://github.com/lizmat/Hash-Ordered/workflows/test/badge.svg)](https://github.com/lizmat/Hash-Ordered/actions)
+
 NAME
 ====
 
@@ -20,14 +22,14 @@ Since `Hash::Ordered` is a role, you can also use it as a base for creating your
 AUTHOR
 ======
 
-Elizabeth Mattijsen <liz@wenzperl.nl>
+Elizabeth Mattijsen <liz@raku.rocks>
 
 Source can be located at: https://github.com/lizmat/Hash-Ordered . Comments and Pull Requests are welcome.
 
 COPYRIGHT AND LICENSE
 =====================
 
-Copyright 2018,2021 Elizabeth Mattijsen
+Copyright 2018, 2021 Elizabeth Mattijsen
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

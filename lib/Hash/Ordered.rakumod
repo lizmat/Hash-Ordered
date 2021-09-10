@@ -1,8 +1,8 @@
 use v6.c;
 
-use Hash::Agnostic:ver<0.0.9>:auth<cpan:ELIZABETH>;
+use Hash::Agnostic:ver<0.0.10>:auth<zef:lizmat>;
 
-role Hash::Ordered:ver<0.0.1>:auth<cpan:ELIZABETH>
+role Hash::Ordered:ver<0.0.2>:auth<zef:lizmat>
   does Hash::Agnostic
 {
     has %!indices;
@@ -105,14 +105,14 @@ your own custom implementations of hashes.
 
 =head1 AUTHOR
 
-Elizabeth Mattijsen <liz@wenzperl.nl>
+Elizabeth Mattijsen <liz@raku.rocks>
 
 Source can be located at: https://github.com/lizmat/Hash-Ordered .
 Comments and Pull Requests are welcome.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2018,2021 Elizabeth Mattijsen
+Copyright 2018, 2021 Elizabeth Mattijsen
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 
