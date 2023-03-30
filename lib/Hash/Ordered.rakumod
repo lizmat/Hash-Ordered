@@ -9,38 +9,24 @@ role Hash::Ordered:ver<0.0.2>:auth<zef:lizmat>
     has str @.keys;
     has Mu  @.values;
 
+    method !KEY-POS(\key) is raw {
+        %!indices.AT-KEY(key) // do {
+            my int $index = @!keys.elems;
+            @!keys.ASSIGN-POS: $index, key;
+            %!indices.BIND-KEY: key, $index;
+        }
+    }
+
     method AT-KEY(::?ROLE:D: \key) is raw {
-        Proxy.new(
-            FETCH => {
-                with %!indices.AT-KEY(key) {
-                    @!values.AT-POS($_)
-                }
-                else { Nil }
-            },
-            STORE => -> $, \value {
-                with %!indices.AT-KEY(key) {
-                    @!values.ASSIGN-POS($_, value)
-                }
-                else {
-                    my int $index = @!keys.elems;
-                    @!keys.ASSIGN-POS($index, key);
-                    %!indices.BIND-KEY(key, $index);
-                    @!values.ASSIGN-POS($index, value)
-                }
-            }
-        )
+        %!indices.AT-KEY(key) andthen @!values.AT-POS($_) orelse Nil
+    }
+
+    method ASSIGN-KEY(::?ROLE:D: \key, \value) is raw {
+        @!values.ASSIGN-POS: self!KEY-POS(key), value
     }
 
     method BIND-KEY(::?ROLE:D: \key, \value) is raw {
-        with %!indices.AT-KEY(key) -> \index {
-            @!values.BIND-POS(index, value)
-        }
-        else {
-            my int $index = @!keys.elems;
-            @!keys.ASSIGN-POS($index, key);
-            @!values.BIND-POS($index, value);
-            %!indices.BIND-KEY(key, $index);
-        }
+        @!values.BIND-POS: self!KEY-POS(key), value
     }
 
     method CLEAR(::?ROLE:D:) {
