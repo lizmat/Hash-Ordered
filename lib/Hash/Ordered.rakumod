@@ -18,7 +18,15 @@ role Hash::Ordered:ver<0.0.2>:auth<zef:lizmat>
     }
 
     method AT-KEY(::?ROLE:D: \key) is raw {
-        %!indices.AT-KEY(key) andthen @!values.AT-POS($_) orelse Nil
+        with %!indices.AT-KEY(key) {
+            @!values.AT-POS($_)
+        }
+        else {
+            Proxy.new(
+                FETCH => { %!indices.AT-KEY(key) andthen @!values.AT-POS($_) orelse Nil },
+                STORE => -> $, \value { self.ASSIGN-KEY(key, value) }
+            )
+        }
     }
 
     method ASSIGN-KEY(::?ROLE:D: \key, \value) is raw {

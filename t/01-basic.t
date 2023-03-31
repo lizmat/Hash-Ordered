@@ -5,10 +5,24 @@ use Hash::Ordered;
 
 plan 11;
 
+my @pairs;
+my @kv;
+
+sub is-in-order(%h, @keys, @values, Str:D $message) is test-assertion {
+    @pairs  := (@keys Z=> @values).List;
+    @kv     := (@keys Z @values).flat.List;
+    subtest $message => {
+        plan 4;
+        is-deeply %h.keys.List,     @keys, 'are the keys in order';
+        is-deeply %h.values.List, @values, 'are the values in order';
+        is-deeply %h.pairs.List,   @pairs, 'are the pairs in order';
+        is-deeply %h.kv.List,         @kv, 'are the key / values in order';
+    }
+}
+
 my @keys   := <b c d e f g h a>;
 my @values := 666, 314, 628, 271, 6, 7, 8, 42;
-my @pairs  := (@keys Z=> @values).List;
-my @kv     := (@keys Z @values).flat.List;
+@pairs  := (@keys Z=> @values).List;
 
 my %h is Hash::Ordered = @pairs;
 subtest {
@@ -24,10 +38,7 @@ subtest {
       'does .raku work ok';
 }, 'test basic stuff after initialization';
 
-is-deeply %h.keys.List,     @keys, 'are the keys in order';
-is-deeply %h.values.List, @values, 'are the values in order';
-is-deeply %h.pairs.List,   @pairs, 'are the pairs in order';
-is-deeply %h.kv.List,         @kv, 'are the key / values in order';
+is-in-order %h, @keys, @values, "original order";
 
 subtest {
     plan +@keys;
@@ -69,5 +80,16 @@ subtest {
     is-deeply (%h{}:v),      @values, 'does a value zen-slice work';
     is-deeply (%h{*}:v),     @values, 'does a value whatever-slice work';
 }, 'can we do value slices';
+
+@keys := (|@keys, "aa");
+@values := (|@values, π);
+%h.AT-KEY("aa") = π;
+
+is-in-order %h, @keys, @values, "new key added via AT-KEY assignment";
+
+@values := (|@values[0 ..^ *-1], 1.2);
+%h.AT-KEY("aa") = 1.2;
+
+is-in-order %h, @keys, @values, "new key modified via AT-KEY assignment";
 
 # vim: expandtab shiftwidth=4
