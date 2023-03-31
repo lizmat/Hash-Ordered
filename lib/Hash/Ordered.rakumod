@@ -5,8 +5,8 @@ use Hash::Agnostic:ver<0.0.10>:auth<zef:lizmat>;
 role Hash::Ordered:ver<0.0.2>:auth<zef:lizmat>
   does Hash::Agnostic
 {
-    has %!indices;
-    has str @.keys;
+    has %!indices handles <EXISTS-KEY>;
+    has str @.keys handles <elems end>;
     has Mu  @.values;
 
     method !KEY-POS(\key) is raw {
@@ -52,10 +52,6 @@ role Hash::Ordered:ver<0.0.2>:auth<zef:lizmat>
 
             value
         }
-    }
-
-    method EXISTS-KEY(::?ROLE:D: \key) {
-        %!indices.EXISTS-KEY(key)
     }
 
     method gist(::?ROLE:D:) {
