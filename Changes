@@ -2,6 +2,11 @@ Revision history for Hash-Ordered
 
 {{$NEXT}}
 
+0.0.3  2023-12-15T18:24:35+01:00
+    - Up dependency on Hash::Agnostic for .Numeric, .Int, .Bool
+    - Add sponsor link
+    - Update copyright year
+
 0.0.2  2021-09-10T11:02:05+02:00
     - Change file extension to .rakumod
     - Migrate to zef ecosystem

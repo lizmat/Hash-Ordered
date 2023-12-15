@@ -3,7 +3,7 @@ use Test;
 
 use Hash::Ordered;
 
-plan 11;
+plan 12;
 
 my @keys   := <b c d e f g h a>;
 my @values := 666, 314, 628, 271, 6, 7, 8, 42;
@@ -69,5 +69,12 @@ subtest {
     is-deeply (%h{}:v),      @values, 'does a value zen-slice work';
     is-deeply (%h{*}:v),     @values, 'does a value whatever-slice work';
 }, 'can we do value slices';
+
+subtest {
+    plan 3;
+    is-deeply +%h, 8,    'does it numerify ok';
+    is-deeply ?%h, True, 'does it boolify ok';
+    is-deeply %h.Int, 8, 'does it intify ok';
+}
 
 # vim: expandtab shiftwidth=4
