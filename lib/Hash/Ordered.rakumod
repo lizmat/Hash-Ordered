@@ -1,6 +1,6 @@
 use v6.c;
 
-use Hash::Agnostic:ver<0.0.11>:auth<zef:lizmat>;
+use Hash::Agnostic:ver<0.0.12>:auth<zef:lizmat>;
 
 role Hash::Ordered does Hash::Agnostic {
     has %!indices;
@@ -114,7 +114,7 @@ deal to me!
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2018, 2021, 2023 Elizabeth Mattijsen
+Copyright 2018, 2021, 2023, 2024 Elizabeth Mattijsen
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

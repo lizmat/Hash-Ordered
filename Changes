@@ -2,6 +2,11 @@ Revision history for Hash-Ordered
 
 {{$NEXT}}
 
+0.0.4  2024-04-28T12:43:15+02:00
+    - Up dependency on Hash::Agnostic
+    - Use modern extensions for test files
+    - Update copyright year
+
 0.0.3  2023-12-15T18:24:35+01:00
     - Up dependency on Hash::Agnostic for .Numeric, .Int, .Bool
     - Add sponsor link
