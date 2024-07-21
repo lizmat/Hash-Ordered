@@ -1,6 +1,6 @@
 use v6.c;
 
-use Hash::Agnostic:ver<0.0.12>:auth<zef:lizmat>;
+use Hash::Agnostic:ver<0.0.14>:auth<zef:lizmat>;
 
 role Hash::Ordered does Hash::Agnostic {
     has %!indices;
