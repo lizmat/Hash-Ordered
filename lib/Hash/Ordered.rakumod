@@ -88,9 +88,13 @@ Hash::Ordered - role for ordered Hashes
 
 =head1 SYNOPSIS
 
-  use Hash::Ordered;
+=begin code :lang<raku>
 
-  my %m is Hash::Ordered = a => 42, b => 666;
+use Hash::Ordered;
+
+my %m is Hash::Ordered = a => 42, b => 666;
+
+=end code
 
 =head1 DESCRIPTION
 

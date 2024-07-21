@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/lizmat/Hash-Ordered/workflows/test/badge.svg)](https://github.com/lizmat/Hash-Ordered/actions)
+[![Actions Status](https://github.com/lizmat/Hash-Ordered/actions/workflows/linux.yml/badge.svg)](https://github.com/lizmat/Hash-Ordered/actions) [![Actions Status](https://github.com/lizmat/Hash-Ordered/actions/workflows/macos.yml/badge.svg)](https://github.com/lizmat/Hash-Ordered/actions) [![Actions Status](https://github.com/lizmat/Hash-Ordered/actions/workflows/windows.yml/badge.svg)](https://github.com/lizmat/Hash-Ordered/actions)
 
 NAME
 ====
@@ -8,9 +8,11 @@ Hash::Ordered - role for ordered Hashes
 SYNOPSIS
 ========
 
-    use Hash::Ordered;
+```raku
+use Hash::Ordered;
 
-    my %m is Hash::Ordered = a => 42, b => 666;
+my %m is Hash::Ordered = a => 42, b => 666;
+```
 
 DESCRIPTION
 ===========
