@@ -1,6 +1,6 @@
 use v6.c;
 
-use Hash::Agnostic:ver<0.0.14>:auth<zef:lizmat>;
+use Hash::Agnostic:ver<0.0.16>:auth<zef:lizmat>;
 
 role Hash::Ordered does Hash::Agnostic {
     has %!indices;
@@ -62,19 +62,19 @@ role Hash::Ordered does Hash::Agnostic {
         %!indices.EXISTS-KEY(key)
     }
 
-    method gist(::?ROLE:D:) {
+    multi method gist(::?ROLE:D:) {
         '{' ~ self.pairs.map( *.gist).join(", ") ~ '}'
     }
 
-    method Str(::?ROLE:D:) {
+    multi method Str(::?ROLE:D:) {
         self.pairs.join(" ")
     }
 
-    method raku(::?ROLE:D:) {
-        self.perlseen(self.^name, {
+    multi method raku(::?ROLE:D:) {
+        self.rakuseen(self.^name, {
           ~ self.^name
           ~ '.new('
-          ~ self.pairs.map({$_<>.perl}).join(',')
+          ~ self.pairs.map({$_<>.raku}).join(',')
           ~ ')'
         })
     }

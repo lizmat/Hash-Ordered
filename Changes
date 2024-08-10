@@ -2,6 +2,10 @@ Revision history for Hash-Ordered
 
 {{$NEXT}}
 
+0.0.7  2024-08-10T12:41:01+02:00
+    - Up dependency on Hash::Agnostic to fix issue with calling
+      .gist / .Str / .raku on type objects
+
 0.0.6  2024-07-21T11:59:33+02:00
     - Fix version snafu
 

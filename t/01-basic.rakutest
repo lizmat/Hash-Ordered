@@ -3,7 +3,7 @@ use Test;
 
 use Hash::Ordered;
 
-plan 12;
+plan 18;
 
 my @keys   := <b c d e f g h a>;
 my @values := 666, 314, 628, 271, 6, 7, 8, 42;
@@ -75,6 +75,16 @@ subtest {
     is-deeply +%h, 8,    'does it numerify ok';
     is-deeply ?%h, True, 'does it boolify ok';
     is-deeply %h.Int, 8, 'does it intify ok';
-}
+}, 'does it xxxify ok';
+
+is-deeply Hash::Ordered.raku, 'Hash::Ordered', 'does .raku work on type object';
+quietly is-deeply Hash::Ordered.Str, '',       'does .Str  work on type object';
+is-deeply Hash::Ordered.gist, '(Ordered)',     'does .gist work on type object';
+
+class A does Hash::Ordered { }
+
+is-deeply A.raku,       'A', 'does .raku work on class type object';
+quietly is-deeply A.Str, '', 'does .Str  work on class type object';
+is-deeply A.gist,     '(A)', 'does .gist work on class type object';
 
 # vim: expandtab shiftwidth=4
