@@ -2,6 +2,12 @@ Revision history for Hash-Ordered
 
 {{$NEXT}}
 
+0.0.8  2024-08-10T16:07:54+02:00
+    - Up dependency on Hash::Agnostic to fix issue with .STORE
+      being called even if there weren't any values to store.
+      This reset the internals unexpectedly after havin been
+      initialized in a TWEAK.  Spotted by Tim Nelson
+
 0.0.7  2024-08-10T12:41:01+02:00
     - Up dependency on Hash::Agnostic to fix issue with calling
       .gist / .Str / .raku on type objects
