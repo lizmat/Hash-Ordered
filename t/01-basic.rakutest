@@ -77,4 +77,13 @@ subtest {
     is-deeply %h.Int, 8, 'does it intify ok';
 }
 
+class	Test-Hash-Ordered does Hash::Ordered {
+    method func() {}
+}
+
+subtest {
+    plan 1;
+    lives-ok({ say Test-Hash-Ordered.WHAT }, 'WHAT on subclass succeeds');
+}
+
 # vim: expandtab shiftwidth=4
