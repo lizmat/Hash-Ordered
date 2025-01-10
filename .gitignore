@@ -1,4 +1,5 @@
 .precomp/
 /releases/
 /Hash-Ordered-*
+*.rakucov
 1

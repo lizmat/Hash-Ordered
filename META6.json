@@ -6,7 +6,7 @@
   "build-depends": [
   ],
   "depends": [
-    "Hash::Agnostic:ver<0.0.17>:auth<zef:lizmat>"
+    "Hash::Agnostic:ver<0.0.17+>:auth<zef:lizmat>"
   ],
   "description": "role for ordered Hashes",
   "license": "Artistic-2.0",
