@@ -7,11 +7,9 @@ Hash::Ordered - role for ordered Hashes
 =head1 SYNOPSIS
 
 =begin code :lang<raku>
-
 use Hash::Ordered;
 
 my %m is Hash::Ordered = a => 42, b => 666;
-
 =end code
 
 =head1 DESCRIPTION
@@ -36,7 +34,7 @@ deal to me!
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2018, 2021, 2023, 2024, 2025 Elizabeth Mattijsen
+Copyright 2018, 2021, 2023, 2024, 2025, 2026 Elizabeth Mattijsen
 
 This library is free software; you can redistribute it and/or modify it under the Artistic License 2.0.
 

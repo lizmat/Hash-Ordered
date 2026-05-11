@@ -5,23 +5,34 @@
   ],
   "build-depends": [
   ],
-  "depends": [
-    "Hash::Agnostic:ver<0.0.17+>:auth<zef:lizmat>"
-  ],
+  "depends": {
+    "runtime": {
+      "requires": [
+        "Hash::Agnostic:ver<0.0.19+>:auth<zef:lizmat>"
+      ]
+    }
+  },
   "description": "role for ordered Hashes",
   "license": "Artistic-2.0",
   "name": "Hash::Ordered",
-  "perl": "6.c",
   "provides": {
     "Hash::Ordered": "lib/Hash/Ordered.rakumod"
   },
+  "raku": "6.c",
   "resources": [
   ],
   "source-url": "https://github.com/lizmat/Hash-Ordered.git",
+  "support": {
+    "bugtracker": "https://github.com/lizmat/Hash-Ordered/issues",
+    "email": "liz@raku.rocks",
+    "source": "https://github.com/lizmat/Hash-Ordered.git"
+  },
   "tags": [
-    "UTILS"
+    "UTILS",
+    "HASH",
+    "ORDERED"
   ],
   "test-depends": [
   ],
-  "version": "0.0.8"
+  "version": "0.0.9"
 }

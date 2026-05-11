@@ -1,4 +1,4 @@
-use Hash::Agnostic:ver<0.0.17+>:auth<zef:lizmat>;
+use Hash::Agnostic:ver<0.0.19+>:auth<zef:lizmat>;
 
 role Hash::Ordered does Hash::Agnostic {
     has %!indices;
@@ -76,6 +76,9 @@ role Hash::Ordered does Hash::Agnostic {
           ~ ')'
         })
     }
+
+    # Hash::Agnostic requires this still
+    method keys() { @!keys }
 }
 
 # vim: expandtab sw=4

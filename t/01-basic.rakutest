@@ -1,4 +1,3 @@
-use v6.c;
 use Test;
 
 use Hash::Ordered;
@@ -12,6 +11,7 @@ my @kv     := (@keys Z @values).flat.List;
 
 my %h is Hash::Ordered = @pairs;
 subtest {
+    plan 4;
     is %h.elems, +@keys, "did we get {+@keys} elements";
     is %h.gist,
       '{b => 666, c => 314, d => 628, e => 271, f => 6, g => 7, h => 8, a => 42}',
